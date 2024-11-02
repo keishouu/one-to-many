@@ -51,7 +51,7 @@ if (isset($_POST['deleteCompanyBtn'])) {
 
 
 if (isset($_POST['insertNewProjectBtn'])) {
-	$query = insertProject($pdo, $_POST['projectName'], $_POST['animationType'], $_GET['company_id']);
+    $query = insertProject($pdo, $_POST['projectName'], $_POST['animationType'], $_GET['company_id'], $_POST['status'], $_POST['startDate'], $_POST['endDate']);
 
 	if ($query) {
 		header("Location: ../viewprojects.php?company_id=" .$_GET['company_id']);
@@ -65,7 +65,7 @@ if (isset($_POST['insertNewProjectBtn'])) {
 
 
 if (isset($_POST['editProjectBtn'])) {
-	$query = updateProject($pdo, $_POST['projectName'], $_POST['animationType'], $_GET['project_id']);
+	$query = updateProject($pdo, $_POST['projectName'], $_POST['animationType'], $_POST['status'], $_POST['startDate'], $_POST['endDate'], $_GET['project_id']);
 
 	if ($query) {
 		header("Location: ../viewprojects.php?company_id=" .$_GET['company_id']);

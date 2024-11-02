@@ -17,17 +17,18 @@ function insertCompany($pdo, $company_name, $contact_info, $location,
 
 
 
-function updateCompany($pdo, $contact_info, $location, 
+function updateCompany($pdo, $company_name, $contact_info, $location, 
 	$established_date, $company_id) {
 
 	$sql = "UPDATE AnimationCompany
-				SET contact_info = ?,
+				SET company_name = ?,
+					contact_info = ?,
 					location = ?,
-					established_date = ?, 
+					established_date = ?
 				WHERE company_id = ?
 			";
 	$stmt = $pdo->prepare($sql);
-	$executeQuery = $stmt->execute([$contact_info, $location, 
+	$executeQuery = $stmt->execute([$company_name, $contact_info, $location, 
 		$established_date, $company_id]);
 	
 	if ($executeQuery) {
@@ -82,7 +83,7 @@ function getCompanyByID($pdo, $company_id) {
 
 
 
-function getAnimationProjectsByWebDev($pdo, $company_id) {
+function getProjectsByCompany($pdo, $company_id) {
 	
 	$sql = "SELECT 
 				AnimationProjects.project_id AS project_id,
@@ -92,7 +93,7 @@ function getAnimationProjectsByWebDev($pdo, $company_id) {
                 AnimationProjects.status AS status,
                 AnimationProjects.start_date AS start_date,
                 AnimationProjects.end_date AS end_date,
-				CONCAT(AnimationCompany.contact_info,' ',AnimationCompany.location) AS project_owner
+				CONCAT(AnimationCompany.company_id,' ',AnimationCompany.company_id) AS company
 			FROM AnimationProjects
 			JOIN AnimationCompany ON AnimationProjects.company_id = AnimationCompany.company_id
 			WHERE AnimationProjects.company_id = ? 
@@ -118,43 +119,44 @@ function insertProject($pdo, $project_name, $animation_type, $company_id, $statu
 }
 
 function getProjectByID($pdo, $project_id) {
-	$sql = "SELECT 
-				AnimationProjects.project_id AS project_id,
-				AnimationProjects.project_name AS project_name,
-				AnimationProjects.animation_type AS animation_type,
-				AnimationProjects.company_id AS company_id,
+    $sql = "SELECT 
+                AnimationProjects.project_id AS project_id,
+                AnimationProjects.project_name AS project_name,
+                AnimationProjects.animation_type AS animation_type,
                 AnimationProjects.status AS status,
                 AnimationProjects.start_date AS start_date,
                 AnimationProjects.end_date AS end_date,
-			FROM AnimationProjects
-			JOIN AnimationCompany ON AnimationProjects.company_id = AnimationCompany.company_id
-			WHERE AnimationProjects.project_id  = ? 
-			GROUP BY AnimationProjects.project_name";
-
-	$stmt = $pdo->prepare($sql);
-	$executeQuery = $stmt->execute([$project_id]);
-	if ($executeQuery) {
-		return $stmt->fetch();
-	}
+                AnimationCompany.company_name AS company_name 
+            FROM AnimationProjects
+            JOIN AnimationCompany ON AnimationProjects.company_id = AnimationCompany.company_id
+            WHERE AnimationProjects.project_id = ?";
+    $stmt = $pdo->prepare($sql);
+    $executeQuery = $stmt->execute([$project_id]);
+    if ($executeQuery) {
+        return $stmt->fetch(); 
+    }
+    return null;
 }
 
-function updateProject($pdo, $project_name, $animation_type, $company_id, $status, $start_date, $end_date, $project_id) {
-	$sql = "UPDATE AnimationProjects
-			SET project_name = ?,
-				animation_type = ?,
-                company_id = ?,
+
+
+function updateProject($pdo, $project_name, $animation_type, $status, $start_date, $end_date, $project_id) {
+    $sql = "UPDATE AnimationProjects
+            SET project_name = ?,
+                animation_type = ?,
                 status = ?,
                 start_date = ?,
                 end_date = ?
-			WHERE project_id = ?
-			";
-	$stmt = $pdo->prepare($sql);
-	$executeQuery = $stmt->execute([$project_name, $animation_type, $company_id, $status, $start_date, $end_date, $project_id]);
+            WHERE project_id = ?";
+    $stmt = $pdo->prepare($sql);
+    $executeQuery = $stmt->execute([$project_name, $animation_type, $status, $start_date, $end_date, $project_id]);
 
-	if ($executeQuery) {
-		return true;
-	}
+    if ($executeQuery) {
+        return true;
+    }
 }
+
+
 
 function deleteProject($pdo, $project_id) {
 	$sql = "DELETE FROM AnimationProjects WHERE project_id = ?";
@@ -165,7 +167,18 @@ function deleteProject($pdo, $project_id) {
 	}
 }
 
+function getAllInfoByCompanyID($pdo, $company_id) {
+	$sql = "SELECT company_id, company_name, contact_info, location, established_date 
+			FROM AnimationCompany 
+            WHERE company_id = ?";
+	$stmt = $pdo->prepare($sql);
+	$executeQuery = $stmt->execute([$company_id]);
 
+	if ($executeQuery) {
+		return $stmt->fetch();  
+	}
+	return null; 
+}
 
 
 ?>

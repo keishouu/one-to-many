@@ -3,7 +3,8 @@ CREATE TABLE AnimationCompany (
     company_name varchar(255),
     contact_info varchar(255),
     location varchar(255),
-    established_date date
+    established_date date,
+    dateAdded timestamp DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE AnimationProjects (

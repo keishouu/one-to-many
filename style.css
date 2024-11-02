@@ -1,0 +1,115 @@
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #2c622e;
+    padding-bottom: 5vh;
+}
+.imagecontainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.gifbg {
+    width: inherit;
+    height: 100%;
+    object-fit: cover;
+    
+}
+
+.bodycontainer {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #000000;
+    width: 80vw;
+    height: 80vh;
+    margin: 10vh auto 15vh auto;
+    padding-top: .5vh;
+}
+
+form {
+    margin-left: 29vw;
+    width: 20vw;
+}
+
+label, input {
+    width: 100%;
+    font-size: 14px;
+}
+
+input{
+    height: 3.5vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 1vh 2vw 1vh 2vw;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-left: 6.5vw;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+button:hover {
+    background-color: #183619;
+}
+
+
+.bodycontainer h1 {
+    font-size: 10vh;
+    color: #2c622e;
+    text-transform: uppercase;
+    margin-left: 27vw;
+}
+
+.bodycontainer h3 {
+    color: #2c622e;
+    margin-top: -2vh;
+    margin-left: 29vw;
+    width: 15vw;
+    padding-left: 5vw;
+}
+
+.companycontainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 5px solid white;
+    margin-top: 5vh;
+    margin-left: 8vw;
+    width: 80vw;
+    height: 40vh;
+}
+
+.companycontainer h3{
+    color: white;
+}
+
+.companydeets {
+    width: 70%;
+}
+.editAndDelete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 15%;
+}
+a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin: 1vh;
+    transition: 0.5s;
+}
+
+a:hover {
+    color: #183619;
+}
