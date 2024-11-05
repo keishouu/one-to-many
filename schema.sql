@@ -14,7 +14,19 @@ CREATE TABLE AnimationProjects (
     company_id INT,
     status varchar(20),
     start_date date,
-    end_date date
+    end_date date,
+    updated_by varchar(50),
 );
 
+CREATE  TABLE user_details (
+	user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    birthdate VARCHAR(50),
+    address VARCHAR(50),
+    email VARCHAR(50),
+    password VARCHAR(255),
+    date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 

@@ -1,5 +1,13 @@
+
 <?php require_once 'core/dbConfig.php'; ?>
 <?php require_once 'core/models.php'; ?>
+
+<?php if (!isset($_SESSION['username'])) {
+	header("Location: login.php");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +17,13 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="header">
+        <h1>Hello, <?php echo ($_SESSION['username']); ?>!</h1>
+        <form action="core/handleForms.php" method="POST">
+            <a style="font-weight:normal;font-size:2vh;" href="userlist.php">View Users</a>
+            <button name="logoutBtn">Logout</button>
+        </form>
+    </div>
     <div class="bodycontainer">
         <h1>Motionix</h1>
         <h3>Add a Company!</h3>

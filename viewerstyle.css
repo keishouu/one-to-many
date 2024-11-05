@@ -7,8 +7,8 @@ body {
 
 .header {
     background-color: #2c622e;
-    padding: 2vh 1vw;
-    position: absolute;
+    padding: 3vh 1vw;
+    position: fixed;
     top: 0;
     left: 0;
     width: 98%;
@@ -75,7 +75,8 @@ button:hover {
     font-weight: bold;
     transition: 0.5s;
     background-color: transparent;
-    padding: 1vh;
+    padding: 2vh;
+    font-size: 3vh;
     border-radius: 25px;
     transition: 0.5s;
 }
@@ -92,6 +93,13 @@ table, td, th {
     border: 2px solid #183619;
     color: #183619;
 }
+
+td, th {
+    padding: 10px; /* Consistent padding */
+    text-align: center;
+    vertical-align: middle; /* Ensure vertical alignment */
+}
+
   
 table {
     width: 80vw;
@@ -103,18 +111,9 @@ td {
     text-align: center;
 }
 
-.btns {
-    display: flex;
-    flex-direction: column;
-    border: none;
-}
 
 .tableBtn {
     text-decoration: none;
     color: #183619;
-    transition: 0.5s;
-    background-color: transparent;
-    padding: 0.5vh;
-    border-radius: 25px;
-    transition: 0.5s;
+    font-size: 2vh;
 }
