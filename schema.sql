@@ -16,6 +16,8 @@ CREATE TABLE AnimationProjects (
     start_date date,
     end_date date,
     updated_by varchar(50),
+    last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_by VARCHAR(255)
 );
 
 CREATE  TABLE user_details (

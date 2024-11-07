@@ -53,7 +53,9 @@
         <th>Status</th>
         <th>Start Date</th>
         <th>End Date</th>
+		<th>Created by</th>
 		<th>Updated By</th>
+		<th>Last Update</th>
 		<th></th>
 	  </tr>
 	  <?php $getProjectsByCompany = getProjectsByCompany($pdo, $_GET['company_id']); ?>
@@ -65,7 +67,9 @@
         <td><?php echo $row['status']; ?></td>
     	<td><?php echo $row['start_date']; ?></td>
         <td><?php echo $row['end_date']; ?></td>
-		<td><?php echo $row['updated_by']; ?></td>	  	
+		<td><?php echo $row['created_by']; ?></td>
+		<td><?php echo !empty($row['updated_by']) ? $row['updated_by'] : ""; ?></td>
+		<td><?php echo $row['last_update']; ?></td>
 	  	<td style="display: flex; flex-direction: column; border: 0; justify-content: center;align-items: center;">
 	  		<a class="tableBtn" href="editproject.php?project_id=<?php echo $row['project_id']; ?>&company_id=<?php echo $_GET['company_id']; ?>">Edit</a>
 

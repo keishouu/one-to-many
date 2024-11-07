@@ -162,40 +162,32 @@ function getCompanyByID($pdo, $company_id) {
 
 
 function getProjectsByCompany($pdo, $company_id) {
-	
-	$sql = "SELECT 
-				AnimationProjects.project_id AS project_id,
-				AnimationProjects.project_name AS project_name,
-				AnimationProjects.animation_type AS animation_type,
-				AnimationProjects.company_id AS company_id,
+    $sql = "SELECT 
+                AnimationProjects.project_id AS project_id,
+                AnimationProjects.project_name AS project_name,
+                AnimationProjects.animation_type AS animation_type,
                 AnimationProjects.status AS status,
                 AnimationProjects.start_date AS start_date,
                 AnimationProjects.end_date AS end_date,
-				AnimationProjects.updated_by AS updated_by,
-				CONCAT(AnimationCompany.company_id,' ',AnimationCompany.company_id) AS company
-			FROM AnimationProjects
-			JOIN AnimationCompany ON AnimationProjects.company_id = AnimationCompany.company_id
-			WHERE AnimationProjects.company_id = ? 
-			GROUP BY AnimationProjects.project_name;
-			";
-
-	$stmt = $pdo->prepare($sql);
-	$executeQuery = $stmt->execute([$company_id]);
-	if ($executeQuery) {
-		return $stmt->fetchAll();
-	}
+				AnimationProjects.created_by AS created_by,
+                AnimationProjects.updated_by AS updated_by,
+                AnimationProjects.last_update AS last_update
+            FROM AnimationProjects
+            WHERE AnimationProjects.company_id = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$company_id]);
+    return $stmt->fetchAll();
 }
+
 
 
 function insertProject($pdo, $project_name, $animation_type, $company_id, $status, $start_date, $end_date, $username) {
-	$sql = "INSERT INTO AnimationProjects (project_name, animation_type, company_id, status, start_date, end_date, updated_by) VALUES (?,?,?,?,?,?,?)";
-	$stmt = $pdo->prepare($sql);
-	$executeQuery = $stmt->execute([$project_name, $animation_type, $company_id, $status, $start_date, $end_date, $username]);
-	if ($executeQuery) {
-		return true;
-	}
-
+    $sql = "INSERT INTO AnimationProjects (project_name, animation_type, company_id, status, start_date, end_date, created_by, updated_by) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, NULL)";
+    $stmt = $pdo->prepare($sql);
+    return $stmt->execute([$project_name, $animation_type, $company_id, $status, $start_date, $end_date, $username]);
 }
+
 
 function getProjectByID($pdo, $project_id) {
     $sql = "SELECT 
@@ -229,12 +221,10 @@ function updateProject($pdo, $project_name, $animation_type, $status, $start_dat
                 updated_by = ?
             WHERE project_id = ?";
     $stmt = $pdo->prepare($sql);
-    $executeQuery = $stmt->execute([$project_name, $animation_type, $status, $start_date, $end_date, $username, $project_id]);
-
-    if ($executeQuery) {
-        return true;
-    }
+    return $stmt->execute([$project_name, $animation_type, $status, $start_date, $end_date, $username, $project_id]);
 }
+
+
 
 
 
